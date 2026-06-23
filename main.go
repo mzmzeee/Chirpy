@@ -18,6 +18,7 @@ type apiConfig struct {
 	db             *database.Queries
 	PLATFORM       string
 	JWTSecret      string
+	PolkaKey       string
 }
 
 func main() {
@@ -25,6 +26,7 @@ func main() {
 	dbURL := os.Getenv("DB_URL")
 	platform := os.Getenv("PLATFORM")
 	jwtSecret := os.Getenv("jwt_secret")
+	polkaKey := os.Getenv("POLKA_KEY")
 
 	db, err := sql.Open("postgres", dbURL)
 	if err != nil {
@@ -36,6 +38,7 @@ func main() {
 		db:        dbQueries,
 		PLATFORM:  platform,
 		JWTSecret: jwtSecret,
+		PolkaKey:  polkaKey,
 	}
 
 	mux := http.NewServeMux()
@@ -47,10 +50,12 @@ func main() {
 	mux.HandleFunc("POST /api/users", cfg.createuser)
 	mux.HandleFunc("GET /api/chirps", cfg.getAllChirps)
 	mux.HandleFunc("GET /api/chirps/{chirpID}", cfg.getById)
+	mux.HandleFunc("DELETE /api/chirps/{chirpID}", cfg.deleteChirp)
 	mux.HandleFunc("PUT /api/users", cfg.updateUser)
 	mux.HandleFunc("POST /api/login", cfg.login)
 	mux.HandleFunc("POST /api/refresh", cfg.refresh)
 	mux.HandleFunc("POST /api/revoke", cfg.revoke)
+	mux.HandleFunc("POST /api/polka/webhooks", cfg.polkaWebhook)
 
 	server := http.Server{
 		Addr:    ":8080",

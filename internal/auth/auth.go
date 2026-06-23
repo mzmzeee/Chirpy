@@ -77,6 +77,19 @@ func AuthenticateUser(headers http.Header, tokenSecret string) (uuid.UUID, error
 	return ValidateJWT(token, tokenSecret)
 }
 
+func GetAPIKey(headers http.Header) (string, error) {
+	authHeader := headers.Get("Authorization")
+	if authHeader == "" {
+		return "", errors.New("no authorization header")
+	}
+
+	if !strings.HasPrefix(authHeader, "ApiKey ") {
+		return "", errors.New("authorization header must start with ApiKey")
+	}
+
+	return strings.TrimPrefix(authHeader, "ApiKey "), nil
+}
+
 func GetBearerToken(headers http.Header) (string, error) {
 	authHeader := headers.Get("Authorization")
 	if authHeader == "" {
