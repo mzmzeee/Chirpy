@@ -1,6 +1,6 @@
 # Chirpy
 
-a twitter-like REST API built with Go — born from the [boot.dev](https://boot.dev) backend development course.
+a twitter-like REST API built with Go from the [boot.dev](https://boot.dev) backend development course.
 
 this project was my deep dive into the Go ecosystem and building production style HTTP servers from scratch. through building Chirpy, I learned how to wire together a real backend: routing, database access, authentication, middleware, and everything in between.
 
