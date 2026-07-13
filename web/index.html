@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b12">
+  <meta name="description" content="Raqmana Chirpy — a focused platform for concise community updates.">
+  <title>Raqmana Chirpy — Share concise updates</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="aurora aurora-one" aria-hidden="true"></div>
+  <div class="aurora aurora-two" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <a class="brand" href="./" aria-label="Raqmana Chirpy home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img">
+            <path d="M37.6 12.7c-2.6-4-7.8-6.2-12.9-5.1-6.4 1.4-10.6 7.5-9.5 13.8.1.7.3 1.4.6 2.1L8.7 31c-.9.9-.3 2.5 1 2.5h8.6c3.1 3 7.6 4.4 12 3.3 7.3-1.7 11.8-9 10-16.2-.7-3.1-1.6-5.4-2.7-7.9Z"/>
+            <circle cx="31.5" cy="18.5" r="2.1"/>
+            <path d="m39.2 21.3 6.1 2.7-6.3 2.1"/>
+          </svg>
+        </span>
+        <span>Raqmana Chirpy</span>
+      </a>
+
+      <nav class="nav-stack">
+        <button class="nav-item is-active" type="button" data-scroll="feedTop">
+          <span class="nav-icon" aria-hidden="true">⌂</span>
+          <span>Home</span>
+        </button>
+        <button class="nav-item" type="button" id="focusComposerButton">
+          <span class="nav-icon" aria-hidden="true">＋</span>
+          <span>New update</span>
+        </button>
+        <button class="nav-item" type="button" id="openProfileButton">
+          <span class="nav-icon" aria-hidden="true">◎</span>
+          <span>Profile</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-card">
+        <span class="eyebrow">RAQMANA CHIRPY</span>
+        <strong class="sidebar-card-title">Concise updates, clearly shared.</strong>
+        <p>Publish relevant updates and follow recent community activity.</p>
+      </div>
+
+      <p class="sidebar-footer">Clear communication. Current information.</p>
+    </aside>
+
+    <main class="main-column" id="feedTop">
+      <header class="topbar">
+        <div>
+          <span class="eyebrow">YOUR FEED</span>
+          <h1>Latest updates.</h1>
+        </div>
+        <button class="user-pill" type="button" id="authButton" aria-haspopup="dialog">
+          <span class="avatar avatar-small" id="headerAvatar">?</span>
+          <span class="user-pill-copy">
+            <strong id="headerUserName">Sign in</strong>
+            <small id="headerUserStatus">access your account</small>
+          </span>
+        </button>
+      </header>
+
+      <section class="hero-card" aria-labelledby="heroTitle">
+        <div class="hero-copy">
+          <span class="sparkle" aria-hidden="true">✦</span>
+          <p class="eyebrow">WELCOME TO RAQMANA CHIRPY</p>
+          <h2 id="heroTitle">Share clearly.<br><span>Stay informed.</span></h2>
+          <p>Publish concise updates and review recent activity from the community.</p>
+        </div>
+        <div class="hero-orbit" aria-hidden="true">
+          <span class="orbit orbit-a"></span>
+          <span class="orbit orbit-b"></span>
+          <span class="hero-bird">r</span>
+          <span class="floating-chip chip-one">concise updates</span>
+          <span class="floating-chip chip-two">current activity</span>
+        </div>
+      </section>
+
+      <section class="composer-card" aria-labelledby="composerTitle">
+        <div class="composer-head">
+          <div class="avatar" id="composerAvatar">?</div>
+          <div>
+            <h2 id="composerTitle">Create an update</h2>
+            <p id="composerHint">Sign in to publish an update.</p>
+          </div>
+        </div>
+        <label class="sr-only" for="chirpInput">Write an update</label>
+        <textarea id="chirpInput" maxlength="140" rows="3" placeholder="Write an update…" disabled></textarea>
+        <div class="composer-actions">
+          <button class="button button-primary" type="button" id="postChirpButton" disabled>
+            <span>Publish</span><span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="feed-section" aria-labelledby="feedTitle">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">RECENT ACTIVITY</span>
+            <h2 id="feedTitle">Community updates</h2>
+          </div>
+          <div class="feed-tools">
+            <button class="sort-button" type="button" id="sortButton" data-sort="desc">
+              <span>Newest first</span><span aria-hidden="true">↓</span>
+            </button>
+            <button class="icon-button" type="button" id="refreshFeedButton" title="Refresh feed" aria-label="Refresh feed">↻</button>
+          </div>
+        </div>
+
+        <div class="feed" id="chirpFeed" aria-live="polite"></div>
+        <div class="empty-state" id="emptyState" hidden>
+          <span aria-hidden="true">〰</span>
+          <h3>No updates yet.</h3>
+          <p>Published updates will appear here.</p>
+        </div>
+      </section>
+    </main>
+
+    <aside class="right-rail">
+      <section class="rail-card pulse-card">
+        <div class="rail-card-heading">
+          <div>
+            <span class="eyebrow">ACTIVITY OVERVIEW</span>
+            <h2>Current activity</h2>
+          </div>
+          <span class="live-badge"><i></i> ACTIVE</span>
+        </div>
+        <div class="stats-grid">
+          <div><strong id="chirpCount">—</strong><span>updates</span></div>
+          <div><strong id="authorCount">—</strong><span>contributors</span></div>
+        </div>
+        <div class="mini-chart" id="miniChart" aria-label="Recent update activity visualization"></div>
+      </section>
+
+      <section class="rail-card tip-card">
+        <span class="tip-icon" aria-hidden="true">✺</span>
+        <div>
+          <span class="eyebrow">COMMUNITY GUIDELINES</span>
+          <h2>Keep updates clear.</h2>
+          <p>Share one focused, respectful message at a time.</p>
+        </div>
+      </section>
+
+    </aside>
+  </div>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+
+  <dialog class="modal" id="authModal">
+    <form method="dialog" class="modal-shell" id="authForm">
+      <button class="modal-close" value="cancel" aria-label="Close dialog">×</button>
+      <div class="modal-brand"><span class="brand-mark mini">r</span><span>Raqmana Chirpy</span></div>
+      <span class="eyebrow" id="authEyebrow">WELCOME BACK</span>
+      <h2 id="authTitle">Sign in to participate.</h2>
+      <p id="authDescription">Sign in to publish and manage your updates.</p>
+
+      <div class="segmented-control" role="tablist" aria-label="Authentication mode">
+        <button type="button" class="segment is-active" id="loginTab" role="tab" aria-selected="true">Sign in</button>
+        <button type="button" class="segment" id="signupTab" role="tab" aria-selected="false">Create account</button>
+      </div>
+
+      <label class="form-field">
+        <span>Email</span>
+        <input id="authEmail" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+      </label>
+      <label class="form-field">
+        <span>Password</span>
+        <input id="authPassword" name="password" type="password" autocomplete="current-password" minlength="6" required placeholder="At least 6 characters">
+      </label>
+      <p class="form-error" id="authError" role="alert"></p>
+      <button class="button button-primary button-full" id="authSubmitButton" value="default">
+        <span>Sign in</span><span aria-hidden="true">↗</span>
+      </button>
+      <p class="modal-footnote">Manage your account from this page.</p>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="profileModal">
+    <form method="dialog" class="modal-shell" id="profileForm">
+      <button class="modal-close" value="cancel" aria-label="Close dialog">×</button>
+      <span class="eyebrow">YOUR PROFILE</span>
+      <h2>Account settings.</h2>
+      <div class="profile-summary">
+        <span class="avatar" id="profileAvatar">?</span>
+        <div><strong id="profileEmailLabel">Not signed in</strong><span id="profileBadge">Standard account</span></div>
+      </div>
+      <label class="form-field">
+        <span>New email</span>
+        <input id="profileEmail" type="email" autocomplete="email" required>
+      </label>
+      <label class="form-field">
+        <span>New password</span>
+        <input id="profilePassword" type="password" autocomplete="new-password" minlength="6" required placeholder="Required to save changes">
+      </label>
+      <p class="form-error" id="profileError" role="alert"></p>
+      <button class="button button-primary button-full" id="saveProfileButton" value="default">
+        <span>Save changes</span><span aria-hidden="true">✓</span>
+      </button>
+      <button class="button button-ghost button-full" type="button" id="logoutButton">Sign out</button>
+    </form>
+  </dialog>
+
+  <template id="chirpTemplate">
+    <article class="chirp-card">
+      <div class="avatar chirp-avatar"></div>
+      <div class="chirp-content">
+        <div class="chirp-meta">
+          <div><strong class="chirp-author"></strong><span class="chirp-handle"></span></div>
+          <time class="chirp-time"></time>
+        </div>
+        <p class="chirp-body"></p>
+        <div class="chirp-footer">
+          <button class="text-button danger delete-button" type="button" hidden>Delete</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
